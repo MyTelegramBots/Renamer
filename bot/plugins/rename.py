@@ -26,9 +26,9 @@ from bot.core.handlers.big_rename import handle_big_rename
 
 @Client.on_message(filters.command(["rename", "r"]) & filters.private & ~filters.edited)
 async def rename_handler(c: Client, m: Message):
-    if UPDATES_CHANNEL is not None:
+    if Config.UPDATES_CHANNEL is not None:
         try:
-            user = await client.get_chat_member(UPDATES_CHANNEL, message.chat.id)
+            user = await client.get_chat_member(Config.UPDATES_CHANNEL, message.chat.id)
             if user.status == "kicked":
                await message.reply_text(
                    text="Sorry Sir, You are Banned to use me. Contact my [Support Group](https://t.me/devschats).",
@@ -42,7 +42,7 @@ async def rename_handler(c: Client, m: Message):
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
-                            InlineKeyboardButton("Join Updates Channel", url=f"https://t.me/{UPDATES_CHANNEL}")
+                            InlineKeyboardButton("Join Updates Channel", url=f"https://t.me/{Config.UPDATES_CHANNEL}")
                         ]
                     ]
                 ),
