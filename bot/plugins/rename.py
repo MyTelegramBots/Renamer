@@ -24,10 +24,39 @@ from bot.core.handlers.not_big import handle_not_big
 from bot.core.handlers.time_gap import check_time_gap
 from bot.core.handlers.big_rename import handle_big_rename
 
-
 @Client.on_message(filters.command(["rename", "r"]) & filters.private & ~filters.edited)
 async def rename_handler(c: Client, m: Message):
-    # Checks
+    if UPDATES_CHANNEL is not None:
+        try:
+            user = await client.get_chat_member(UPDATES_CHANNEL, message.chat.id)
+            if user.status == "kicked":
+               await message.reply_text(
+                   text="Sorry Sir, You are Banned to use me. Contact my [Support Group](https://t.me/devschats).",
+                   parse_mode="markdown",
+                   disable_web_page_preview=True
+               )
+               return
+        except UserNotParticipant:
+            await message.reply_text(
+                text="**Please Join My Updates Channel to use this Bot!**",
+                reply_markup=InlineKeyboardMarkup(
+                    [
+                        [
+                            InlineKeyboardButton("Join Updates Channel", url=f"https://t.me/{UPDATES_CHANNEL}")
+                        ]
+                    ]
+                ),
+                parse_mode="markdown"
+            )
+            return
+        except Exception:
+            await message.reply_text(
+                text="Something went Wrong. Contact my [Support Group](https://t.me/devschats).",
+                parse_mode="markdown",
+                disable_web_page_preview=True
+            )
+            return
+# Checks
     if not m.from_user:
         return await m.reply_text("I don't know about you sar :(")
     if m.from_user.id not in Config.PRO_USERS:
