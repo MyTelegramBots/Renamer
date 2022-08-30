@@ -7,6 +7,7 @@ from bot.client import (
     Client
 )
 from pyrogram import filters
+from pyrogram.errors import FloodWait, UserNotParticipant
 from pyrogram.file_id import FileId
 from pyrogram.types import Message
 from bot.core.file_info import (
