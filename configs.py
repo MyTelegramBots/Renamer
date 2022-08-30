@@ -16,6 +16,7 @@ class Config(object):
     API_HASH = os.environ.get("API_HASH", "")
     BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
     DOWNLOAD_DIR = os.environ.get("DOWNLOAD_DIR", "./downloads")
+    UPDATES_CHANNEL = int(os.environ.get("UPDATES_CHANNEL", ""))
     LOGGER = logging
     OWNER_ID = int(os.environ.get("OWNER_ID", 1445283714))
     PRO_USERS = list(set(int(x) for x in os.environ.get("PRO_USERS", "0").split()))
